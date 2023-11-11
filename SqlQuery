@@ -1,0 +1,28 @@
+Create Table Products(
+Id Int Primary Key Identity(1,1),
+Name NVARCHAR(40)
+);
+
+Create Table Categories(
+Id Int Primary Key Identity(1,1),
+Name NVARCHAR(40)
+);
+
+Create Table ProductsAndCategories
+(
+Id int Primary Key Identity(1,1),
+ProductId int FOREIGN KEY REFERENCES Products(Id) On Delete Cascade,
+CategoryId Int FOREIGN KEY REFERENCES Categories(Id) On Delete Cascade,
+);
+
+Insert Into Products Values ('Iphone'),('MetalSheet'),('Bread'),('Window');
+
+Insert Into Categories Values ('SmartPhone'),('Food'),('Supplies');
+
+Insert Into ProductsAndCategories Values (1,1),(2,3),(3,2),(2,2);
+
+
+Select Products.Name,  Categories.Name
+From Products
+Left Join ProductsAndCategories On ProductsAndCategories.ProductId = Products.Id
+Left Join Categories On ProductsAndCategories.CategoryId = Categories.Id;
